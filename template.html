@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td rowspan="2">
+                    №
+                </td>
+                <td rowspan="2">
+                    Участник
+                </td>
+                <td rowspan="2">
+                    =
+                </td>
+                <td rowspan="2">
+                    SE
+                </td>
+                {% for item in titles %}
+                    <td colspan="{{ item.count }}">
+                        {{ item.title }}
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for item in problems %}
+                    <td>
+                        {{ item }}
+                    </td>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+</html>
