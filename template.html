@@ -5,37 +5,57 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <table border="1">
+    <table border="1" align="center" cellpadding="4">
         <thead>
             <tr>
-                <td rowspan="2">
+                <td rowspan="2" align="center">
                     №
                 </td>
-                <td rowspan="2">
+                <td rowspan="2" align="center">
                     Участник
                 </td>
-                <td rowspan="2">
+                <td rowspan="2" align="center">
                     =
                 </td>
-                <td rowspan="2">
+                <td rowspan="2" align="center">
                     SE
                 </td>
                 {% for item in titles %}
-                    <td colspan="{{ item.count }}">
+                    <td colspan="{{ item.count }}" align="center">
                         {{ item.title }}
                     </td>
                 {% endfor %}
             </tr>
             <tr>
                 {% for item in problems %}
-                    <td>
+                    <td align="center">
                         {{ item }}
                     </td>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
-
+            {% for user in users %}
+                <tr>
+                    <td align="center">
+                        {{ user.num }}
+                    </td>
+                    <td>
+                        {{ user.name }}
+                    </td>
+                    <td align="center">
+                        {{ user.accepted }}
+                    </td>
+                    <td align="center">
+                        {{ user.se }}
+                    </td>
+                    {% for item in user.problems %}
+                        <td bgcolor="{{ item.color }}" align="center">
+                            {{ item.text }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>

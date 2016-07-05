@@ -14,6 +14,8 @@ def get_tasks(head):
 
 
 def get_user_info(user):
+    if len(user.find_class('user')) == 0:
+        return 0, 0
     name = user.find_class('user')[0].text_content().strip()
     tasks = user.find_class('task')
     result = []
@@ -40,7 +42,8 @@ def get_users_from_contest(num):
     body = table[1]
     for children in body.getchildren():
         name, info = get_user_info(user=children)
-        result[name] = info
+        if name != 0:
+            result[name] = info
 
     return result
 
@@ -101,7 +104,36 @@ def make_html(contests, title, filename):
     titles = get_titles(data=users['head'], contests=contests)
     problems = get_problems(data=users['head'], contests=contests)
 
+    lst = []
+    i = 1
+    for user in user_list:
+        user_dict = {'num': i,
+                     'name': user[0],
+                     'accepted': user[1],
+                     'se': user[2],
+                     'problems': [], }
+        for contest in contests:
+            if contest in users[user[0]]:
+                for problem in users[user[0]][contest]:
+                    if problem == '.':
+                        user_dict['problems'].append({'color': '#FFFFFF',
+                                                      'text': '', })
+                    elif problem[0] == '+':
+                        user_dict['problems'].append({'color': '#90FF77',
+                                                      'text': problem, })
+                    else:
+                        user_dict['problems'].append({'color': '#DD290E',
+                                                      'text': problem, })
+            else:
+                for _ in users['head'][contest]['problems']:
+                    user_dict['problems'].append({'color': 'FFFFFF',
+                                                  'text': '', })
+
+        lst.append(user_dict)
+        i += 1
+
     with open(filename, 'w') as f:
         f.write(template.render({'title': title,
                                  'titles': titles,
-                                 'problems': problems, }).encode('utf8'))
+                                 'problems': problems,
+                                 'users': lst, }).encode('utf8'))
