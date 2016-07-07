@@ -92,3 +92,5 @@ ENV/
 *.sqlite3
 *~
 .idea/
+stand_b.html
+stand_c.html
