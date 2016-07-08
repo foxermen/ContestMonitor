@@ -8,5 +8,5 @@ contests_c = (92, 93, 95)
 
 TITLE = u'Параллель %s'
 
-make_html(contests=contests_b, title=(TITLE % 'B'), filename="template/stand_b.html")
-make_html(contests=contests_c, title=(TITLE % 'C'), filename="template/stand_c.html")
+make_html(contests=contests_b, title=(TITLE % 'B'), filename="./../stand_b.html")
+make_html(contests=contests_c, title=(TITLE % 'C'), filename="./../stand_c.html")

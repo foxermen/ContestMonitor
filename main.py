@@ -9,18 +9,18 @@ MATCH_URL = "http://contest.stavpoisk.ru/olympiad/%s/show-monitor"
 
 def get_tasks(head):
     tasks = head.find_class('task')
-    result = [t.text_content().strip() for t in tasks]
+    result = [t.text.strip() for t in tasks]
     return result
 
 
 def get_user_info(user):
     if len(user.find_class('user')) == 0:
         return 0, 0
-    name = user.find_class('user')[0].text_content().strip()
+    name = user.find_class('user')[0].text.strip()
     tasks = user.find_class('task')
     result = []
     for task in tasks:
-        text = task.getchildren()[0].text_content().strip()
+        text = task.getchildren()[0].text.strip()
         if text.find('\n') != -1:
             text = text[:text.find('\n')]
         result.append(text)
@@ -30,7 +30,7 @@ def get_user_info(user):
 def get_users_from_contest(num):
     result = {'head': {}, }
     page = html.parse(MATCH_URL % num)
-    title = page.getroot().find_class('page-title')[0].text_content()
+    title = page.getroot().find_class('page-title')[0].text
     title = title[:title.find('\n')]
     result['head']['title'] = title
 
